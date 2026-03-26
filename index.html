@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhavana K A Suthar | Premium Portfolio</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <nav id="navbar" class="glass-nav">
+        <div class="logo">BHAVANA K.A. SUTHAR</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header id="home">
+        <div class="hero-content glass-card" data-aos="zoom-in" data-aos-duration="1200">
+            <h1>Bhavana K A Suthar</h1>
+            <p>Innovative Developer & Certified Technologist</p>
+            <a href="#certifications" class="btn btn-ios">Explore Credentials</a>
+        </div>
+    </header>
+
+    <section id="certifications" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Professional Certifications</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Verified achievements in software development and data analytics.</p>
+            
+            <div class="cert-grid">
+                <div class="glass-card cert-card" data-aos="fade-up" data-aos-delay="150">
+                    <div class="cert-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
+                    <h3>Infosys</h3>
+                    <p>Comprehensive training records and technical certifications awarded through Infosys.</p>
+                    <a href="assets/infosys-certs.pdf" target="_blank" class="btn btn-outline-ios">View PDF</a>
+                </div>
+
+                <div class="glass-card cert-card" data-aos="fade-up" data-aos-delay="250">
+                    <div class="cert-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+                    </div>
+                    <h3>Qlik</h3>
+                    <p>Credentials demonstrating proficiency in Qlik data analytics and business intelligence platforms.</p>
+                    <a href="assets/qlik-certs.pdf" target="_blank" class="btn btn-outline-ios">View PDF</a>
+                </div>
+
+                <div class="glass-card cert-card" data-aos="fade-up" data-aos-delay="350">
+                    <div class="cert-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    </div>
+                    <h3>Node.js</h3>
+                    <p>Specialized certification verifying expertise in server-side JavaScript and backend development.</p>
+                    <a href="assets/nodejs-cert.pdf" target="_blank" class="btn btn-outline-ios">View PDF</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container contact-container">
+            <div class="contact-header" data-aos="fade-up">
+                <h2>Get In Touch</h2>
+                <p>Send a message below for professional inquiries.</p>
+            </div>
+            
+            <div class="glass-card form-wrapper" data-aos="fade-up" data-aos-delay="150">
+                <form id="contactForm">
+                    <div class="input-row">
+                        <div class="input-group">
+                            <input type="text" id="name" placeholder="Name" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="email" id="email" placeholder="Email" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <textarea id="message" rows="5" placeholder="Message" required></textarea>
+                    </div>
+                    <button type="submit" id="submitBtn" class="btn btn-ios w-100">Send Message</button>
+                    <p id="responseMsg" class="response-msg"></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Bhavana K A Suthar. Crafted with elegance.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // 1. Initialize Animations
+        AOS.init({ duration: 1000, once: true, offset: 50, easing: 'ease-out-cubic' });
+
+        // 2. Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // 3. Handle Contact Form Submission
+        const contactForm = document.getElementById('contactForm');
+        const responseMsg = document.getElementById('responseMsg');
+        const submitBtn = document.getElementById('submitBtn');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault(); 
+                
+                submitBtn.innerText = "Sending...";
+                submitBtn.disabled = true;
+
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    message: document.getElementById('message').value
+                };
+
+                try {
+                    const response = await fetch('/api/contact', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formData)
+                    });
+
+                    if (response.ok) {
+                        responseMsg.style.color = "#ff2d55"; // Native iOS Pink
+                        responseMsg.innerText = "✓ Message delivered successfully.";
+                        contactForm.reset();
+                    } else {
+                        throw new Error("Failed to send message.");
+                    }
+                } catch (err) {
+                    responseMsg.style.color = "#ff3b30"; // Native iOS Red for errors
+                    responseMsg.innerText = "✕ Delivery failed. Please try again.";
+                } finally {
+                    submitBtn.innerText = "Send Message";
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
